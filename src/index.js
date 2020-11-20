@@ -59,6 +59,7 @@ export class Player extends events.EventEmitter {
 	}
 	scheduleRepeat(time){
 		this.playSegment(this.segment, time, 0);
+		this.segment++;
 	}
 	_startMethod(time, offset){
 		//it was paused and restated
@@ -81,27 +82,26 @@ export class Player extends events.EventEmitter {
 }
 
 instArr.forEach(instrument => {
-	var player = new Player(instrument);
-	player.id = Transport.scheduleRepeat(function(time){
-		player.playSegment(player.segment, time, 0);
-		player.segment++;
+	players[instrument] = new Player(instrument);
+	players[instrument].id = Transport.scheduleRepeat(function(time){
+		players[instrument].playSegment(players[instrument].segment, time, 0);
+		players[instrument].segment++;
 	}, SEG_TIME, 0);
 	Transport.on('start', function(time, offset){
-		if (player.started){
+		if (players[instrument].started){
 			const seg = Math.floor(offset / SEG_TIME);
-			player.playSegment(seg, time, offset - seg * SEG_TIME);
+			players[instrument].playSegment(seg, time, offset - seg * SEG_TIME);
 		}
-		player.started = true
+		players[instrument].started = true
 	});
 	Transport.on('pause stop', function(time){
-		if (player.playingSource){
-			player.playingSource.stop(time, 0.1);
+		if (players[instrument].playingSource){
+			players[instrument].playingSource.stop(time, 0.1);
 		}
 	});
 	Transport.on('stop', function(time){
-		player.buffers = []
+		players[instrument].buffers = []
 	});
-	players[instrument] = player;
 });
 
 function loadSegments(startSegment, numLoadSegments, instArr) {
@@ -114,6 +114,7 @@ function loadSegments(startSegment, numLoadSegments, instArr) {
 				players[instrument].buffers.push(buffer);
 				loadSegments(startSegment, numLoadSegments, instArr);
 			} else {
+				players[instrument].buffers.push(buffer);
 				loadSegments(startSegment + 1, numLoadSegments, Object.keys(instruments));
 				segmentLoaded(startSegment);
 			}
