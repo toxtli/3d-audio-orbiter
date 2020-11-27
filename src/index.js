@@ -17,6 +17,7 @@ var segments = 9;
 var waitingLapse = 10000;
 var startSegment = 0;
 var numLoadSegments = 9;
+var selectedEffect = 0;
 var instruments = {
 	'other': {
 		'position': {x: -1.4142135623730951, y: 0.3, z: -1.414213562373095},
@@ -101,14 +102,27 @@ instArr.forEach(instrument => {
 	});
 });
 
-function transformSong() {
-	console.log('TRANSFORM');
+function transformSong0() {
+	console.log('TRANSFORM0');
 	circleCusTrackName('vocals', 1000, 'sin', 'cos', 1.0, 2.5, 0.0, 0.0005);
 	circleCusTrackName('bass',  3000, 'cos', 'sin', 0.2, 2.0, 0.0, 0.0005);
 	circleCusTrackName('drums', 0,    'cos', 'sin', 0.2, 2.0, 0.0, 0.0005);
 	circleCusTrackName('piano', 4000, 'cos', 'sin', 1.9, 1.5, 0.0, 0.0005);
 	circleCusTrackName('other', 2000, 'cos', 'sin', 1.9, 1.5, 0.0, 0.0005);
 }
+
+function transformSong1() {
+	console.log('TRANSFORM1');
+	circleCusTrackName('vocals', 1000, 'sin', 'cos', 'sin', 0.5, 0.0, 0.0005);
+	circleCusTrackName('bass', 3000, 'cos', 'sin', 'cos', 1.0, 0.0, 0.0005);
+	circleCusTrackName('drums', 0, 'cos', 'sin', 'sin', 2.0, 0.0, 0.0005);
+	circleCusTrackName('piano', 4000, 'cos', 'sin', 'cos', 1.5, 0.0, 0.0005);
+	circleCusTrackName('other', 2000, 'cos', 'sin', 'sin', 1.5, 0.0, 0.0005);
+}
+
+var songEffects = [transformSong0, transformSong1];
+
+var transformSong = songEffects[selectedEffect];
 
 function circleCusTrackName(name, delay=0, xPos='cos', yPos='sin', zPos=1, distance=2, gap=0, speed=0.0005) {
 	setTimeout(
@@ -260,6 +274,8 @@ document.getElementById('selectSong').addEventListener('click', () => {
 document.getElementById('playButton').addEventListener('click', () => {
 	Tone.start();
 	Transport.start();
+	var effectId = parseInt($('#effectMenu').val());
+	transformSong = songEffects[effectId];
 	transformSong();
 });
 

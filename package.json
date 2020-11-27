@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "http-server",
+    "restart": "npm run build && npm start",
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "npm run predeploy && ghpages git@github.com:toxtli/3d-audio-orbiter.git -p .ghpages && rm -rf .ghpages",
