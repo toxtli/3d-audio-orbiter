@@ -6,7 +6,9 @@
   "scripts": {
     "start": "http-server",
     "build": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "npm run predeploy && ghpages git@github.com:toxtli/3d-audio-orbiter.git -p .ghpages && rm -rf .ghpages",
+    "predeploy": "npm run build && shx mkdir -p .ghpages && cp -r index.html js css dist CNAME .ghpages"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +18,10 @@
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "babel-preset-es2015": "^6.24.1",
+    "ghpages": "0.0.10",
     "http-server": "^0.12.3",
+    "shx": "^0.3.3",
+    "terser-webpack-plugin": "^5.0.3",
     "webpack": "^5.5.1",
     "webpack-cli": "^4.2.0"
   },
