@@ -199,7 +199,8 @@ document.getElementById('sendButton').addEventListener('click', () => {
 					if (data.status == 'OK') {
 						console.log(songUrl);
 						$('#formMsg').html('<div>We already have that song in the list. Loading song.</div>');
-						playSong(songUrl);
+						// playSong(songUrl);
+						reloadSong(songUrl)
 						// var button = document.createElement( "button" );
 						// button.innerHTML = "PlAY";
 						// $(button).on('click',function(){
@@ -233,11 +234,13 @@ function waitingProcessing(songUrl) {
   				  	if (data.value > 0) {
   				  		console.log('START LOADING');
   				  		setTimeout(()=>{
-  				  			playSong(songUrl);
-  				  		}, 2000);
+  				  			// playSong(songUrl);
+  				  			reloadSong(songUrl);
+  				  		}, 10000);
   				  	} else {
   				  		console.log('STILL WAITING');
 						waitingProcessing(songUrl);
+						document.getElementById('loader').innerHTML += '.';
   				  	}
   				  });
 	}, waitingLapse);
@@ -246,7 +249,8 @@ function waitingProcessing(songUrl) {
 document.getElementById('selectSong').addEventListener('click', () => {
 	var select = document.getElementById('songsList');
 	if (select.value) {
-		playSong(select.value);
+		// playSong(select.value);
+		reloadSong(select.value);
 		// var hashUrl = interfaceUrl + '#'+ select.value;
 		// window.location.href = hashUrl;
 		// location.reload();
@@ -337,6 +341,11 @@ $('#songsList').on('change', () => {
 		document.getElementById('selectSong').setAttribute('disabled', '1');
 	}
 });
+
+function reloadSong(song) {
+	window.location.href = '#' + song
+	location.reload();
+}
 
 if (hash) {
 	console.log(hash);
