@@ -2,8 +2,62 @@
 <html>
 <head>
 	<title></title>
+	<script src="https://code.jquery.com/jquery-1.12.4.js" crossorigin="anonymous"></script>
+	<script src="js/jquery.dd.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+	<link rel="stylesheet" type="text/css" href="css/dd.css" />	
 </head>
 <body>
+	<div id="songSection">
+		<div id="songList">
+			<div>
+				You can select a song previously converted by other users.
+			</div>
+			<button id="toggleSearch" class="btn"><i class="fa fa-search"></i></button>
+			<select id="songsList">
+				<option value=''>--- LOADING THE SONGS LIST ... ---</option>
+			</select>
+			<button id="selectSong" class="btn"><i class="fa fa-play"></i></button>
+		</div>
+		<div style="padding-top: 10px; padding-bottom: 10px;">
+			====== OR ======
+		</div>
+		<div id="songForm">
+			<div>
+				Paste a Youtube URL to be converted (we'll email you when done)
+			</div>
+			<div id="bands2">
+				<div>
+					<span>
+						Youtube URL:
+					</span>
+					<span>
+						<input class="inputText" type="text" id="url" name="url" size="40" placeholder="https://www.youtube.com/watch?v=[VIDEO_ID]">
+					</span>
+					<span id="pasteSection" hidden>
+						<button id="pasteButton" class="btn2"><i class="fa fa-paste"></i></button>
+					</span>
+				</div>
+				<div>
+					<span>
+						Email:
+					</span>
+					<span>
+						<input class="inputText" type="email" id="email" name="email" size="20" placeholder="your@email.com">
+					</span>
+					<span>
+						<button id="sendButton">CONVERT</button>
+					</span>
+				</div>
+			</div>
+			<div id="formMsg"></div>
+			<button id="playButton" disabled>PLAY</button>
+		</div>
+		<div id="loader">
+			Status: 
+		</div>
+	</div>
 	<script src="dist/main.js"></script>
 </body>
 </html>
