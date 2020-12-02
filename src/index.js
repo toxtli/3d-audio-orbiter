@@ -239,6 +239,31 @@ document.getElementById('sendButton').addEventListener('click', () => {
 	}
 });
 
+function processSong(youtubeUrl) {
+	var serverUrl = 'https://script.google.com/macros/s/AKfycbxsr0Wtr7AaLILm-4cgZ0zgUfPd7ln1VS9j5GRTVWcFSOzoVG4/exec?a=queue&q=';
+	var urlArr = [youtubeUrl];
+	var email = 'me@me.com';
+	console.log('PROCESSING SONG');
+	urlArr.push(email);
+	serverUrl += encodeURIComponent(JSON.stringify(urlArr));
+	fetch(serverUrl)
+	  .then(response => response.json())
+	  .then((data) => {
+			console.log(data);
+			var songUrl = data.value.split('#')[1];
+			if (data.status == 'OK') {
+				console.log(songUrl);
+				$('#formMsg').html('<div>We already have that song in the list. Loading song.</div>');
+				reloadSong(songUrl);
+			} else {
+				document.getElementById('formMsg').innerHTML = 'We got your request, depending on the queued tasks it may take minutes or hours. We will send an email when done, please check your inbox and your spam folder. If you do not get the email please check the music list after some time.';
+				console.log(songUrl)
+				console.log(data);
+				waitingProcessing(songUrl);
+			}
+	  });
+}
+
 function waitingProcessing(songUrl) {
 	setTimeout(()=>{
 		var songIdNum = songUrl.split(',')[0];
@@ -250,7 +275,7 @@ function waitingProcessing(songUrl) {
   				  		setTimeout(()=>{
   				  			// playSong(songUrl);
   				  			reloadSong(songUrl);
-  				  		}, 10000);
+  				  		}, 15000);
   				  	} else {
   				  		console.log('STILL WAITING');
 						waitingProcessing(songUrl);
@@ -269,6 +294,26 @@ document.getElementById('selectSong').addEventListener('click', () => {
 		// window.location.href = hashUrl;
 		// location.reload();
 	}
+});
+
+document.getElementById('searchButton').addEventListener('click', () => {
+	var query = $('#youtubeQuery').val();
+	var url = 'https://script.google.com/macros/s/AKfycbxsr0Wtr7AaLILm-4cgZ0zgUfPd7ln1VS9j5GRTVWcFSOzoVG4/exec?a=youtube&q=' + query;
+	fetch(url).then(response => response.json())
+		.then(data => {
+			console.log(data);
+			if (data.status == 'OK' && data.value.length > 0) {
+				$('#searchResults').html('');
+				for (var obj of data.value) {
+					$('#searchResults').append(`<a href="#" class="linkObjs" id="${obj.id.videoId}"><img src="https://i.ytimg.com/vi/${obj.id.videoId}/default.jpg">${obj.snippet.title}</a><br>`);
+				}
+				$('.linkObjs').on('click', function(){
+					processSong('https://www.youtube.com/watch?v=' + this.id);
+				})
+			} else {
+				$('#searchResults').html('NO RESULTS');
+			}
+		});
 });
 
 document.getElementById('playButton').addEventListener('click', () => {
