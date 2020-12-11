@@ -9,7 +9,7 @@
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "npm run predeploy && ghpages git@github.com:toxtli/3d-audio-orbiter.git -p .ghpages && rm -rf .ghpages",
-    "predeploy": "npm run build && shx mkdir -p .ghpages && cp -r index.html js css dist CNAME .ghpages"
+    "predeploy": "npm run build && shx mkdir -p .ghpages && cp -r index.html player.html search.html js css dist CNAME .ghpages"
   },
   "keywords": [],
   "author": "",

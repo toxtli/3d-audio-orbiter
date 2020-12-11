@@ -157,7 +157,7 @@ function loadSegments(songId, startSegment, numLoadSegments, instArr) {
 		var instrument = instArr.pop();
 		var url = audioDirectory + songId + '/' + instrument + '-' + startSegment + '.mp3';
 		console.log(url);
-		document.getElementById('loader').innerHTML += '.';
+		// document.getElementById('loader').innerHTML += '.';
 		var buffer = new ToneAudioBuffer(url, () => {
 			if (instArr.length > 0) {
 				players[instrument].buffers.push(buffer);
@@ -175,27 +175,31 @@ function segmentLoaded(numSegment) {
 	if (numSegment == 0) {
 		console.log('LOADED');
 		if (document.getElementById('playButton') != undefined) {
-			document.getElementById('playButton').disabled = false;
+			// document.getElementById('playButton').disabled = false;
 		} else {
-			Transport.start();
-			transformSong();
+			$('.section-player').show();
+			$('.section-loading').hide();
+			$('.div-gif-animation').hide();
+			// Transport.start();
+			// transformSong();
 		}
 	}
 }
 
 var interfaceUrl = '';
 
-document.getElementById('songSection').style.display = 'block';
+// document.getElementById('songSection').style.display = 'block';
 
-document.getElementById('sendButton').addEventListener('click', () => {
+// document.getElementById('sendButton').addEventListener('click', () => {
+function sendButtonClick() {
 	var serverUrl = 'https://script.google.com/macros/s/AKfycbxsr0Wtr7AaLILm-4cgZ0zgUfPd7ln1VS9j5GRTVWcFSOzoVG4/exec?a=queue&q=';
 	var youtubeUrl = document.getElementById('url').value;
 	if (youtubeUrl) {
 		var urlArr = [youtubeUrl];
 		var email = document.getElementById('email').value;
 		if (email) {
-			document.getElementById("sendButton").innerHTML = '...';
-			document.getElementById('sendButton').setAttribute('disabled', '1');
+			// document.getElementById("sendButton").innerHTML = '...';
+			// document.getElementById('sendButton').setAttribute('disabled', '1');
 			console.log('PROCESSING SONG');
 			urlArr.push(email);
 			//serverUrl += encodeURI(youtubeUrl);
@@ -206,13 +210,13 @@ document.getElementById('sendButton').addEventListener('click', () => {
 			    return response.json();
 			  })
 			  .then((data) => {
-			  		document.getElementById("sendButton").innerHTML = 'CONVERT';
-			  		document.getElementById('sendButton').removeAttribute('disabled');
+			  		// document.getElementById("sendButton").innerHTML = 'CONVERT';
+			  		// document.getElementById('sendButton').removeAttribute('disabled');
 					console.log(data);
 					var songUrl = data.value.split('#')[1];
 					if (data.status == 'OK') {
 						console.log(songUrl);
-						$('#formMsg').html('<div>We already have that song in the list. Loading song.</div>');
+						// $('#formMsg').html('<div>We already have that song in the list. Loading song.</div>');
 						// playSong(songUrl);
 						reloadSong(songUrl)
 						// var button = document.createElement( "button" );
@@ -225,19 +229,20 @@ document.getElementById('sendButton').addEventListener('click', () => {
 						// document.getElementById('formMsg').innerHTML = 'Playing song';
 						// playSong(songUrl.split('#')[1]);
 					} else {
-						document.getElementById('formMsg').innerHTML = 'We got your request, depending on the queued tasks it may take minutes or hours. We will send an email when done, please check your inbox and your spam folder. If you do not get the email please check the music list after some time.';
+						// document.getElementById('formMsg').innerHTML = 'We got your request, depending on the queued tasks it may take minutes or hours. We will send an email when done, please check your inbox and your spam folder. If you do not get the email please check the music list after some time.';
 						console.log(songUrl)
 						console.log(data);
 						waitingProcessing(songUrl);
 					}
 			  });
 		} else {
-			document.getElementById('formMsg').innerHTML = 'Please provide a valid e-mail.';
+			// document.getElementById('formMsg').innerHTML = 'Please provide a valid e-mail.';
 		}
 	} else {
-		document.getElementById('formMsg').innerHTML = 'Please provide a valid Youtube URL.';
+		// document.getElementById('formMsg').innerHTML = 'Please provide a valid Youtube URL.';
 	}
-});
+}
+// });
 
 function processSong(youtubeUrl) {
 	var serverUrl = 'https://script.google.com/macros/s/AKfycbxsr0Wtr7AaLILm-4cgZ0zgUfPd7ln1VS9j5GRTVWcFSOzoVG4/exec?a=queue&q=';
@@ -253,10 +258,10 @@ function processSong(youtubeUrl) {
 			var songUrl = data.value.split('#')[1];
 			if (data.status == 'OK') {
 				console.log(songUrl);
-				$('#formMsg').html('<div>We already have that song in the list. Loading song.</div>');
+				// $('#formMsg').html('<div>We already have that song in the list. Loading song.</div>');
 				reloadSong(songUrl);
 			} else {
-				document.getElementById('formMsg').innerHTML = 'We got your request, depending on the queued tasks it may take minutes or hours. We will send an email when done, please check your inbox and your spam folder. If you do not get the email please check the music list after some time.';
+				// document.getElementById('formMsg').innerHTML = 'We got your request, depending on the queued tasks it may take minutes or hours. We will send an email when done, please check your inbox and your spam folder. If you do not get the email please check the music list after some time.';
 				console.log(songUrl)
 				console.log(data);
 				waitingProcessing(songUrl);
@@ -279,13 +284,14 @@ function waitingProcessing(songUrl) {
   				  	} else {
   				  		console.log('STILL WAITING');
 						waitingProcessing(songUrl);
-						document.getElementById('loader').innerHTML += '.';
+						// document.getElementById('loader').innerHTML += '.';
   				  	}
   				  });
 	}, waitingLapse);
 }
 
-document.getElementById('selectSong').addEventListener('click', () => {
+// document.getElementById('selectSong').addEventListener('click', () => {
+function selectSongClick() {
 	var select = document.getElementById('songsList');
 	if (select.value) {
 		// playSong(select.value);
@@ -294,9 +300,11 @@ document.getElementById('selectSong').addEventListener('click', () => {
 		// window.location.href = hashUrl;
 		// location.reload();
 	}
-});
+}
+// });
 
-document.getElementById('searchButton').addEventListener('click', () => {
+// document.getElementById('searchButton').addEventListener('click', () => {
+function searchButtonClick() {
 	var query = $('#youtubeQuery').val();
 	var url = 'https://script.google.com/macros/s/AKfycbxsr0Wtr7AaLILm-4cgZ0zgUfPd7ln1VS9j5GRTVWcFSOzoVG4/exec?a=youtube&q=' + query;
 	fetch(url).then(response => response.json())
@@ -314,15 +322,24 @@ document.getElementById('searchButton').addEventListener('click', () => {
 				$('#searchResults').html('NO RESULTS');
 			}
 		});
+}
+// });
+
+
+$('.button-play').on('click', () => {
+	$('.div-gif-animation').show();
+	playButtonClick();
 });
 
-document.getElementById('playButton').addEventListener('click', () => {
+// document.getElementById('playButton').addEventListener('click', () => {
+function playButtonClick() {
 	Tone.start();
 	Transport.start();
 	var effectId = parseInt($('#effectMenu').val());
 	transformSong = songEffects[effectId];
 	transformSong();
-});
+}
+// });
 
 function playSong(song) {
 	var arrParams = song.split(',');
@@ -330,78 +347,82 @@ function playSong(song) {
 	var songIdNum = arrParams[0];
 	currentSong = songIdNum; 
 	if (!loadedSongs.hasOwnProperty(songIdNum)) {
+		$('.section-player').hide();
+		$('.section-loading').show();
 		loadSegments(arrParams[0], 0, numSegments, instArr);
 		loadedSongs[songIdNum] = true;
 	} else {
+		$('.section-player').show();
+		$('.section-loading').hide();
 		Transport.start();
 	}
 }
 
-if (navigator.permissions && navigator.clipboard && navigator.clipboard.readText) {
-	document.getElementById('pasteSection').removeAttribute('hidden');
-	document.getElementById('pasteButton').addEventListener('click', () => {
-		console.log('PASTE');
-		navigator.permissions.query({name: "clipboard-read"}).then(result => {
-		  console.log(result.state);
-		  if (result.state == "granted" || result.state == "prompt") {
-		    //document.getElementById('url').focus();
-	  		//document.execCommand("paste");
-			navigator.clipboard.readText().then(text => document.getElementById('url').value = text);
-		  }
-		});
-	});
-}
+// if (navigator.permissions && navigator.clipboard && navigator.clipboard.readText) {
+// 	document.getElementById('pasteSection').removeAttribute('hidden');
+// 	document.getElementById('pasteButton').addEventListener('click', () => {
+// 		console.log('PASTE');
+// 		navigator.permissions.query({name: "clipboard-read"}).then(result => {
+// 		  console.log(result.state);
+// 		  if (result.state == "granted" || result.state == "prompt") {
+// 		    //document.getElementById('url').focus();
+// 	  		//document.execCommand("paste");
+// 			navigator.clipboard.readText().then(text => document.getElementById('url').value = text);
+// 		  }
+// 		});
+// 	});
+// }
 
 var filterOn = false;
-document.getElementById('toggleSearch').addEventListener('click', () => {
-	if (filterOn) {
-		$("#songsList").msDropdown().data("dd").hideFilterBox()
-		filterOn = false;
-	} else {
-		$("#songsList").msDropdown().data("dd").showFilterBox()
-		filterOn = true;
-	}
-});
+// document.getElementById('toggleSearch').addEventListener('click', () => {
+// 	if (filterOn) {
+// 		$("#songsList").msDropdown().data("dd").hideFilterBox()
+// 		filterOn = false;
+// 	} else {
+// 		$("#songsList").msDropdown().data("dd").showFilterBox()
+// 		filterOn = true;
+// 	}
+// });
 
-(function() {
-	var select = document.getElementById('songsList');
-	var serverUrl = 'https://script.google.com/macros/s/AKfycbxsr0Wtr7AaLILm-4cgZ0zgUfPd7ln1VS9j5GRTVWcFSOzoVG4/exec?a=readSongs&q=1';
-	fetch(serverUrl)
-	    .then((response) => {
-	        return response.json();
-	    })
-	    .then((data) => {
-			if (data.status == 'OK') {
-				select.options[0].innerHTML = '--- CHOOSE A SONG ---';
-				var values = data.value;
-				for (var row of values) {
-					if (row[0]) {
-						var opt = document.createElement('option');
-					    opt.value = row[0] + ',' + row[2];
-					    opt.setAttribute("data-image", "https://i.ytimg.com/vi/" + row[0] + "/default.jpg");
-					    opt.innerHTML = row[1];
-					    select.appendChild(opt);
-					}
-				}
-				try {
-					$(select).msDropDown();
-					var oDropdown = $("#songsList").msDropdown().data("dd");
-					$("body").append( "<style>#splash #splash-container #bands span {display:inline;}</style>");
-				} catch(e) {
-					console.log(e.message);
-				}
-			}
-	  });
-})();
+// (function() {
+// 	var select = document.getElementById('songsList');
+// 	var serverUrl = 'https://script.google.com/macros/s/AKfycbxsr0Wtr7AaLILm-4cgZ0zgUfPd7ln1VS9j5GRTVWcFSOzoVG4/exec?a=readSongs&q=1';
+// 	fetch(serverUrl)
+// 	    .then((response) => {
+// 	        return response.json();
+// 	    })
+// 	    .then((data) => {
+// 			if (data.status == 'OK') {
+// 				select.options[0].innerHTML = '--- CHOOSE A SONG ---';
+// 				var values = data.value;
+// 				for (var row of values) {
+// 					if (row[0]) {
+// 						var opt = document.createElement('option');
+// 					    opt.value = row[0] + ',' + row[2];
+// 					    opt.setAttribute("data-image", "https://i.ytimg.com/vi/" + row[0] + "/default.jpg");
+// 					    opt.innerHTML = row[1];
+// 					    select.appendChild(opt);
+// 					}
+// 				}
+// 				try {
+// 					$(select).msDropDown();
+// 					var oDropdown = $("#songsList").msDropdown().data("dd");
+// 					// $("body").append( "<style>#splash #splash-container #bands span {display:inline;}</style>");
+// 				} catch(e) {
+// 					console.log(e.message);
+// 				}
+// 			}
+// 	  });
+// })();
 
-$('#songsList').on('change', () => {
-	var select = document.getElementById('songsList');
-	if (select.value) {
-		document.getElementById('selectSong').removeAttribute('disabled');
-	} else {
-		document.getElementById('selectSong').setAttribute('disabled', '1');
-	}
-});
+// $('#songsList').on('change', () => {
+// 	var select = document.getElementById('songsList');
+// 	if (select.value) {
+// 		document.getElementById('selectSong').removeAttribute('disabled');
+// 	} else {
+// 		document.getElementById('selectSong').setAttribute('disabled', '1');
+// 	}
+// });
 
 function reloadSong(song) {
 	window.location.href = '#' + song
