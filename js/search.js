@@ -13,7 +13,7 @@ function searchButtonClick() {
 				for (var i=0; i<4; i++) {
 					$(`.res-1-${i+1} .div-thumbnail`).css("background-image", `url(https://i.ytimg.com/vi/${data.value[i].id.videoId}/default.jpg)`);
 					$(`.res-1-${i+1} .p-results`).html(data.value[i].snippet.title);
-					$(`.res-1-${i+1}`).attr('href', `/player.html#${data.value[i].id.videoId},180`);
+					$(`.res-1-${i+1}`).attr('href', `player.html#${data.value[i].id.videoId},180`);
 				}
 				
 				// for (var obj of data.value) {
