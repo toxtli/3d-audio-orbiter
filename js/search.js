@@ -10,10 +10,19 @@ function searchButtonClick() {
 			console.log(data);
 			if (data.status == 'OK' && data.value.length > 0) {
 				// $('#searchResults').html('');
-				for (var i=0; i<4; i++) {
-					$(`.res-1-${i+1} .div-thumbnail`).css("background-image", `url(https://i.ytimg.com/vi/${data.value[i].id.videoId}/default.jpg)`);
-					$(`.res-1-${i+1} .p-results`).html(data.value[i].snippet.title);
-					$(`.res-1-${i+1}`).attr('href', `player.html#${data.value[i].id.videoId},180`);
+				for (var i=0; i<data.value.length; i++) {
+					var result = `
+						<a href="#" class="link-block-results w-inline-block res-1-${i}">
+	                        <div class="div-thumbnail"></div>
+	                        <p class="p-results"><strong>title<br /></strong>channelTitle</p>
+	                    </a>
+	                `;
+	                $('#youtubeResults').append(result);
+            	}
+				for (var i=0; i<data.value.length; i++) {
+					$(`.res-1-${i} .div-thumbnail`).css("background-image", `url(https://i.ytimg.com/vi/${data.value[i].id.videoId}/default.jpg)`);
+					$(`.res-1-${i} .p-results`).html(data.value[i].snippet.title);
+					$(`.res-1-${i}`).attr('href', `player.html#${data.value[i].id.videoId},180`);
 				}
 				
 				// for (var obj of data.value) {
