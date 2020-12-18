@@ -158,6 +158,10 @@
     display: none;
   }
   
+  .round-button.email-notification-player {
+    margin-top: 20px;
+  }
+  
   .subhead {
     color: rgba(0, 0, 0, 0.5);
     font-size: 24px;
@@ -708,11 +712,12 @@
   }
   
   .p-fav-home {
-    max-width: 150px;
+    padding-top: 20px;
     text-align: left;
   }
   
   .h5-fav-home {
+    display: none;
     padding-top: 20px;
     text-align: left;
   }
@@ -908,6 +913,7 @@
   }
   
   .section-top-charts-home {
+    padding-right: 40px;
     padding-left: 40px;
   }
   
@@ -936,7 +942,11 @@
     -ms-flex-align: end;
     align-items: flex-end;
     border-radius: 10px;
-    background-color: #000;
+    background-color: #f2f2f2;
+    background-image: url("https://uploads-ssl.webflow.com/5e9579b2e9ca8a016bd27193/5fd87777ac2d54784f8efd74_Region-Placeholder-Orbiter.jpeg");
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
   
   .div-charts-containers.miller {
@@ -983,6 +993,8 @@
   }
   
   .p-charts-home {
+    padding-right: 20px;
+    padding-bottom: 20px;
     padding-left: 20px;
     color: #fff;
     font-size: 16px;
@@ -1023,6 +1035,7 @@
   }
   
   .section-top-suggestions-home {
+    padding-right: 40px;
     padding-left: 40px;
   }
   
@@ -1107,6 +1120,8 @@
     display: -ms-flexbox;
     display: flex;
     height: 100vh;
+    padding-right: 20px;
+    padding-left: 20px;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
@@ -1128,8 +1143,8 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    height: 170px;
-    padding-top: 100px;
+    height: 120px;
+    padding-top: 60px;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
@@ -1255,6 +1270,54 @@
     -webkit-filter: invert(100%);
     filter: invert(100%);
     text-align: center;
+  }
+  
+  .section-new-request {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100vh;
+    padding-right: 20px;
+    padding-left: 20px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .p-new-request-player {
+    max-width: 600px;
+    padding-top: 20px;
+    padding-bottom: 60px;
+    font-size: 20px;
+    line-height: 1.2;
+  }
+  
+  .input-email {
+    width: 80vw;
+    height: 30px;
+    max-width: 400px;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+  }
+  
+  .p-loading-headphone {
+    max-width: 500px;
+    padding-top: 60px;
+    padding-bottom: 20px;
+    font-size: 20px;
+    line-height: 1.2;
   }
   
   @media screen and (min-width: 1280px) {
@@ -1861,6 +1924,12 @@
   
     .right-arrow-home {
       display: none;
+    }
+  
+    .p-charts-home {
+      padding-right: 10px;
+      padding-bottom: 10px;
+      padding-left: 10px;
     }
   
     .grid-favs-home {
