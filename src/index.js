@@ -160,6 +160,14 @@ function loadSegments(songId, startSegment, numLoadSegments, instArr) {
 		// document.getElementById('loader').innerHTML += '.';
 		var buffer = new ToneAudioBuffer(url, () => {
 			if (instArr.length > 0) {
+				if (startSegment == 0) {
+					var totalInsts = Object.keys(instruments).length;
+					var percentVal = 100 - parseInt((instArr.length / totalInsts) * 100);
+					$('.load-percent').html(percentVal + '%');
+					var progSize = parseInt($('.progress-bar').css('width').split('px')[0]);
+					var progValue = parseInt(progSize * (percentVal/100));
+					$('.progress-real-time').css('width', progValue + 'px');
+				}
 				players[instrument].buffers.push(buffer);
 				loadSegments(songId, startSegment, numLoadSegments, instArr);
 			} else {
