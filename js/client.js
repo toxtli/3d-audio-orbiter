@@ -6,8 +6,8 @@ fetch(serverUrl)
     })
     .then((data) => {
 		if (data.status == 'OK') {
-			console.log(data.value);
-			for (var record of data.value) {
+			console.log(data.value.featured);
+			for (var record of data.value.featured) {
 				var level = record[4];
 				if (!thumbs.hasOwnProperty(level)) {
 					thumbs[level] = [];
@@ -15,14 +15,21 @@ fetch(serverUrl)
 				thumbs[level].push(record);
 			}
 			loadThumbs();
+			setHero(data.value.settings);
 		}
 	});
+
+function setHero(settings) {
+	console.log(settings);
+	$('.img-1-0').css("background-image", `url(${settings[0][1]})`);
+	$('.p-hero-home').html(settings[1][1]);
+}
 
 function loadThumbs() {
 	console.log(thumbs[1][0][3]);
 	// $('.img-1-0').css("background-image", `url(${thumbs[1][0][3]})`);
+	// $('.p-hero-home').html(thumbs[1][0][1]);
 	$('.link-block-hero').attr('href', `player.html#${thumbs[1][0][0]},${thumbs[1][0][2]}`);
-	$('.p-hero-home').html(thumbs[1][0][1]);
 	for (var i=0; i<6; i++) {
 		$(`.img-2-${i}`).css("background-image", `url(${thumbs[2][i][3]})`);
 		$(`.img-2-${i}`).attr('href', `player.html#${thumbs[2][i][0]},${thumbs[2][i][2]}`)	
