@@ -187,6 +187,7 @@ function segmentLoaded(numSegment) {
 		} else {
 			$('.section-player').show();
 			$('.section-loading').hide();
+			$('.section-process').hide();
 			$('.div-gif-animation').hide();
 			// Transport.start();
 			// transformSong();
@@ -357,11 +358,13 @@ function playSong(song) {
 	if (!loadedSongs.hasOwnProperty(songIdNum)) {
 		$('.section-player').hide();
 		$('.section-loading').show();
+		$('.section-process').hide();
 		loadSegments(arrParams[0], 0, numSegments, instArr);
 		loadedSongs[songIdNum] = true;
 	} else {
 		$('.section-player').show();
 		$('.section-loading').hide();
+		$('.section-process').hide();
 		Transport.start();
 	}
 }
@@ -437,7 +440,37 @@ function reloadSong(song) {
 	location.reload();
 }
 
+function getSong(hash) {
+	var arrParams = hash.split(',');
+	var songId = arrParams[0];
+	var serverUrl = 'https://script.google.com/macros/s/AKfycbxsr0Wtr7AaLILm-4cgZ0zgUfPd7ln1VS9j5GRTVWcFSOzoVG4/exec?a=getSong&q=' + songId;
+	fetch(serverUrl)
+	  .then((response) => {
+	    return response.json();
+	  })
+	  .then((data) => {
+	  		// document.getElementById("sendButton").innerHTML = 'CONVERT';
+	  		// document.getElementById('sendButton').removeAttribute('disabled');
+			console.log(data);
+			if (data.status == 'OK') {
+				var songArr = data.value;
+				if (songArr.length > 0) {
+					$('.h1-song-name').html(songArr[1]);
+					playSong(hash);
+				}
+				else {
+					$('.section-player').hide();
+					$('.section-loading').hide();
+					$('.section-process').show();
+					var youtubeUrl = 'https://www.youtube.com/watch?v=' + songId
+					processSong(youtubeUrl);
+				}
+			}
+	  });
+}
+
 if (hash) {
 	console.log(hash);
-	playSong(hash);
+	getSong(hash);
+	// playSong(hash);
 }
