@@ -896,7 +896,9 @@
     bottom: auto;
     width: 500px;
     height: 300px;
+    /*
     background-image: url("https://uploads-ssl.webflow.com/5e9579b2e9ca8a016bd27193/5fc7cdd32315f61ccf6afd3a_Harry%20PNG.001.png");
+    */
     background-position: 50% 0%;
     background-size: cover;
     background-repeat: no-repeat;
