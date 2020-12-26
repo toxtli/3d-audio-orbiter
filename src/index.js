@@ -185,10 +185,12 @@ function segmentLoaded(numSegment) {
 		if (document.getElementById('playButton') != undefined) {
 			// document.getElementById('playButton').disabled = false;
 		} else {
-			$('.section-player').show();
-			$('.section-loading').hide();
-			$('.section-process').hide();
-			$('.div-gif-animation').hide();
+			// $('.section-player').show();
+			// $('.section-loading').hide();
+			// $('.section-process').hide();
+			// $('.div-gif-animation').hide();
+			$('#messageStart').show();
+			$('#buttonStart').show();
 			// Transport.start();
 			// transformSong();
 		}
@@ -340,6 +342,14 @@ $('.button-play').on('click', () => {
 	playButtonClick();
 });
 
+$('#buttonStart').on('click', () => {
+	$('.section-player').show();
+	$('.section-loading').hide();
+	$('.section-process').hide();
+	$('.div-gif-animation').hide();
+	$('.button-play').click();
+});
+
 // document.getElementById('playButton').addEventListener('click', () => {
 function playButtonClick() {
 	Tone.start();
@@ -359,6 +369,8 @@ function playSong(song) {
 		$('.section-player').hide();
 		$('.section-loading').show();
 		$('.section-process').hide();
+		$('#messageStart').hide();
+		$('#buttonStart').hide();
 		loadSegments(arrParams[0], 0, numSegments, instArr);
 		loadedSongs[songIdNum] = true;
 	} else {
@@ -470,6 +482,7 @@ function getSong(hash) {
 }
 
 if (hash) {
+	$('.section-player').hide();
 	console.log(hash);
 	getSong(hash);
 	// playSong(hash);
