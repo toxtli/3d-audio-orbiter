@@ -190,6 +190,9 @@ function segmentLoaded(numSegment) {
 			// $('.section-process').hide();
 			// $('.div-gif-animation').hide();
 			$('#messageStart').show();
+			$('.load-percent').html('100%');
+			var progValue = parseInt($('.progress-bar').css('width').split('px')[0]);
+			$('.progress-real-time').css('width', progValue + 'px');
 			$('#buttonStart').show();
 			// Transport.start();
 			// transformSong();
@@ -348,14 +351,16 @@ $('#buttonStart').on('click', () => {
 	$('.section-process').hide();
 	$('.div-gif-animation').hide();
 	$('.button-play').click();
+	$('.svg-pause').show();
+	$('.svg-play').hide();
 });
 
 // document.getElementById('playButton').addEventListener('click', () => {
 function playButtonClick() {
 	Tone.start();
 	Transport.start();
-	var effectId = parseInt($('#effectMenu').val());
-	transformSong = songEffects[effectId];
+	// selectedEffect = parseInt($('#effectMenu').val());
+	transformSong = songEffects[selectedEffect];
 	transformSong();
 }
 // });
