@@ -21,3 +21,15 @@
     align-items: center;
     text-align: center;
 }
+
+.section-player: {
+    display: none;
+}
+
+.section-loading: {
+    display: none;
+}
+
+.section-process: {
+    display: none;
+}

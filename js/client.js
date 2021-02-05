@@ -1,4 +1,4 @@
-var thumbs = {};
+var 	 = {};
 var serverUrl = 'https://script.google.com/macros/s/AKfycbxsr0Wtr7AaLILm-4cgZ0zgUfPd7ln1VS9j5GRTVWcFSOzoVG4/exec?a=readFeatured&q=';
 fetch(serverUrl)
     .then((response) => {
