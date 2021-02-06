@@ -33,3 +33,11 @@
 .section-process: {
     display: none;
 }
+
+#buttonStart: {
+    display: none;
+}
+
+.div-logo-container-nav {
+  max-width: 180px;
+}

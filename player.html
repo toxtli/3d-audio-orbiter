@@ -26,7 +26,11 @@
     <div class="body-home">
         <div data-collapse="medium" data-animation="default" data-duration="300" role="banner"
             class="navbar site-navigation w-nav"><a href="index.html" class="brand-link w-nav-brand">
-                <h1 class="h1-64-brand">Music Around Me</h1>
+                <!-- <h1 class="h1-64-brand">Orbiter</h1> -->
+                <div class="div-logo-container-nav">
+    <img src="https://uploads-ssl.webflow.com/5e9579b2e9ca8a016bd27193/6016d527e9b9131f633e29f2_Logo-music-around.svg"
+       loading="lazy" alt="" class="svg-logo-mam" />
+</div>
             </a>
             <div class="navbar-container">
                 <div class="menu-button w-nav-button">
@@ -60,7 +64,7 @@
             <div class="s40"></div>
             <div class="section-none">
             </div>
-            <div class="section-player">
+            <div class="section-player" hidden>
                 <div class="general-container w-container">
                     <h1 class="h1-song-name"></h1>
                     <div class="div-player-animation">
@@ -92,7 +96,7 @@
             </div>
             <div class="s40"></div>
             <!-- Loading Section Starts -->
-            <div class="section-loading">
+            <div class="section-loading" hidden>
                 <h1>Loading</h1>
                 <div class="div-progress-player">
                     <p class='load-percent'>0%</p>
@@ -106,11 +110,11 @@
                         Once you&#x27;re ready press &quot;Start&quot;.
                     </span>
                 </p>
-                    <a href="#" id="buttonStart" class="round-button w-button">Start</a>
+                    <a href="#" id="buttonStart" style="display:none" class="round-button w-button" hidden>Start</a>
             </div>
             <!-- End of Loading Section -->
             <!-- Loading Section Starts -->
-            <div class="section-process">
+            <div class="section-process" hidden>
                 <!-- <h1>Processing</h1> -->
                 <div class="section-new-request">
                     <h1>We&#x27;re processing your song</h1>
