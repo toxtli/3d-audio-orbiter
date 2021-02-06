@@ -2,6 +2,12 @@ $('.submit-button-search').on('click', () => {
 	searchButtonClick();
 });
 
+$('.input-search').on('keypress',function(e) {
+    if(e.which == 13) {
+        searchButtonClick();
+    }
+});
+
 function searchButtonClick() {
 	var query = $('.input-search').val();
 	var url = 'https://script.google.com/macros/s/AKfycbxsr0Wtr7AaLILm-4cgZ0zgUfPd7ln1VS9j5GRTVWcFSOzoVG4/exec?a=youtube&q=' + query;

@@ -13,6 +13,8 @@ var corsProxy = 'https://cors-anywhere.herokuapp.com/';
 var songId = 'v_zZmsFZDaM';
 var loadedSongs = {};
 var currentSong = '';
+var isPlaying = false;
+var isFirstTime = true;
 var segments = 9;
 var waitingLapse = 10000;
 var startSegment = 0;
@@ -294,7 +296,7 @@ function waitingProcessing(songUrl) {
   				  		setTimeout(()=>{
   				  			// playSong(songUrl);
   				  			reloadSong(songUrl);
-  				  		}, 15000);
+  				  		}, 30000);
   				  	} else {
   				  		console.log('STILL WAITING');
 						waitingProcessing(songUrl);
@@ -357,11 +359,27 @@ $('#buttonStart').on('click', () => {
 
 // document.getElementById('playButton').addEventListener('click', () => {
 function playButtonClick() {
-	Tone.start();
-	Transport.start();
-	// selectedEffect = parseInt($('#effectMenu').val());
-	transformSong = songEffects[selectedEffect];
-	transformSong();
+	if (!isPlaying && isFirstTime) {
+		isPlaying = true;
+		isFirstTime = false;
+		Tone.start();
+		Transport.start();
+		// selectedEffect = parseInt($('#effectMenu').val());
+		transformSong = songEffects[selectedEffect];
+		transformSong();
+		$('.svg-pause').show();
+		$('.svg-play').hide();
+	} else if (!isPlaying && !isFirstTime) {
+		isPlaying = true;
+		Transport.start();
+		$('.svg-pause').show();
+		$('.svg-play').hide();
+	} else {
+		isPlaying = false;
+		Transport.pause();
+		$('.svg-pause').hide();
+		$('.svg-play').show();
+	}
 }
 // });
 
