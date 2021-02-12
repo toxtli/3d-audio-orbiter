@@ -43,5 +43,5 @@
 }
 
 .div-toggle-player {
-    display: none;
+    visibility: hidden;
 }
