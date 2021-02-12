@@ -41,3 +41,7 @@
 .div-logo-container-nav {
   max-width: 180px;
 }
+
+.div-toggle-player {
+    display: none;
+}
