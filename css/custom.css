@@ -45,3 +45,11 @@
 .div-toggle-player {
     visibility: hidden;
 }
+
+.svg-play {
+    display: none;
+}
+
+.svg-pause {
+    display: block;
+}
