@@ -46,10 +46,10 @@
     visibility: hidden;
 }
 
-.svg-play2 {
+.svg-play {
     display: none;
 }
 
-.svg-pause2 {
+.svg-pause {
     display: block;
 }
